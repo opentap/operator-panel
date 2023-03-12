@@ -1,0 +1,12 @@
+[Oo]bj
+[Bb]in
+*.suo
+*.tss
+*.user
+*.dat
+.vs/
+.idea
+
+# Temp files from git merges:
+*.orig
+

@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTap.OperatorUI", "OpenTap.OperatorUI\OpenTap.OperatorUI.csproj", "{4253D054-44EB-4C52-921E-DCC2480CC8FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4253D054-44EB-4C52-921E-DCC2480CC8FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4253D054-44EB-4C52-921E-DCC2480CC8FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4253D054-44EB-4C52-921E-DCC2480CC8FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4253D054-44EB-4C52-921E-DCC2480CC8FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
