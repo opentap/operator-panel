@@ -7,9 +7,9 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="OpenTAP" Version="9.20.0-rc.4"/>
-        <OpenTapPackageReference Include="WPF Controls" Version="9.19"/>
-        <AdditionalOpenTapPackage Include="Editor"/>
+        <PackageReference Include="OpenTAP" Version="9.20.0-rc.4" />
+        <OpenTapPackageReference Include="WPF Controls" Version="9.19" />
+        <AdditionalOpenTapPackage Include="Editor" />
         <Reference Include="Keysight.Ccl.Wsl">
             <HintPath>$(OutputPath)\Dependencies\Keysight.Ccl.Wsl.4.0.1.9\Keysight.Ccl.Wsl.dll</HintPath>
         </Reference>
@@ -17,6 +17,12 @@
         <Reference Include="PresentationFramework" />
         <Reference Include="System.Windows.Forms" />
         <Reference Include="WindowsBase" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Content Include="..\Documentation\icon.png">
+        <Link>Packages\Operator UI\icon.png</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

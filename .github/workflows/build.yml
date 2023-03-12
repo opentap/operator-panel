@@ -1,0 +1,77 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main", "release" ]
+    tags:
+      - v*
+  pull_request:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build -c Release --no-restore
+      
+  publish-package:
+    if: github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
+    environment: packages.opentap.io
+    runs-on: windows-latest
+    needs:
+      - build-windows
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: TapPackage
+          path: ./
+      - name: Setup OpenTAP
+        uses: opentap/setup-opentap@v1.0
+        with:
+          version: 9.19.4
+      - name: Install PackagePublish
+        run: tap package install -f PackagePublish --version 3.0.0+efea95ee
+      - name: Publish
+        run: |
+          tap package publish -r http://packages.opentap.io -k ${{ secrets.REPO_PASS }} OperatorUI.*.TapPackage
+  
+  build-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Pages Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install
+        run: npm install
+        working-directory: Documentation
+      - name: Build
+        run: npm run build
+        env:
+          # Newer versions of ssl no longer supports the hashing used by vuepress(webpack).
+          NODE_OPTIONS: --openssl-legacy-provider
+        working-directory: Documentation
+      - name: Upload Docs
+        uses: actions/upload-artifact@v2
+        with:
+          name: Pages
+          retention-days: 14
+          path: |
+            public
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
+        with:
+          publish_dir: public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: pages
+      

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package Name="Operator UI" xmlns="http://keysight.com/Schemas/tap" Version="$(GitVersion)" OS="Windows">
+    <Description>
+        Operator UI
+        <Links>
+            <Link Name="Source Code" Description="Go to the source code repository." Url="https://github.com/OpenTAP/operator-ui"/>
+            <Link Name="Documentation" Description="Go to the documentation." Url="https://doc.opentap.io/operator-ui/"/>
+        </Links>
+        <Contacts> tap.support@keysight.com </Contacts>
+        <Prerequisites> </Prerequisites>
+    </Description>
+    <Owner>Keysight Technologies, Inc.</Owner>
+    <SourceUrl>https://github.com/opentap/operator-ui</SourceUrl>
+    <Files>
+        <File Path="Packages/Operator UI/OpenTap.OperatorUI.dll" >
+            <SetAssemblyInfo Attributes="Version"/>
+        </File>
+        <File Path="Packages/Operator UI/icon.png">
+            <PackageIcon/>
+        </File>
+    </Files>
+</Package>
+
+
