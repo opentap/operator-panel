@@ -7,7 +7,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
     /// <summary>
     /// This class is a plugin for the docking system in Test Automation, which can serve a view given the current context.
     /// </summary>
-    [Display("Operator Panel", Group:"Examples")]
+    [Display("Operator Panel", Description: "Simplified for running test plan.")]
     public class OperatorPanelProvider : ITapDockPanel
     {
         /// <summary> Creates a new operator ui main panel. </summary>
