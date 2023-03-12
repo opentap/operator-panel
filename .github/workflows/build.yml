@@ -16,6 +16,17 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build -c Release --no-restore
+      - name: Build-Package
+        run: |
+           cd OpenTap.OperatorUI\bin\Release\net472\
+           ./tap.exe package create ../../../../package.xml
+      - name: Upload binaries
+        uses: actions/upload-artifact@v2
+        with:
+          name: TapPackage
+          retention-days: 14
+          path: |
+            OpenTap.OperatorUI\bin\Release\net472\Operator UI*.TapPackage
       
   publish-package:
     if: github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')

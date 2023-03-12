@@ -24,9 +24,10 @@
     </ItemGroup>
     
     <ItemGroup>
-      <Content Include="..\Documentation\icon.png">
+      <None Include="..\Documentation\icon.png">
         <Link>Packages\Operator UI\icon.png</Link>
-      </Content>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
