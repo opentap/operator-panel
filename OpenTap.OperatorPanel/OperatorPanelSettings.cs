@@ -3,10 +3,10 @@ using OpenTap;
 
 namespace PluginDevelopment.Gui.OperatorPanel
 {
-    [Display("Operator UI Settings")]
-    public class OperatorUiSettings : ComponentSettings<OperatorUiSettings>
+    [Display("Operator Panel Settings")]
+    public class OperatorPanelSettings : ComponentSettings<OperatorPanelSettings>
     {
-        [Display("Operator UIs")]
+        [Display("Operator Panels")]
         public List<OperatorPanelSetting> OperatorUis { get; set; } = new List<OperatorPanelSetting>()
         {
             new OperatorPanelSetting { Name = "Panel 1" }

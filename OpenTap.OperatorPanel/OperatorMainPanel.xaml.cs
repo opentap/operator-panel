@@ -29,7 +29,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
                 viewModels[viewModel] = model2;
             }
 
-            var panel = new OperatorUiPanel(tapDockContext, viewModel, model2);
+            var panel = new SessionView(tapDockContext, viewModel, model2);
             decorator.Child = panel;
         }
     }

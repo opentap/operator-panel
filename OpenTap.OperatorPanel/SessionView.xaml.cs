@@ -10,17 +10,17 @@ using OpenTap;
 namespace PluginDevelopment.Gui.OperatorPanel
 {
     /// <summary>
-    /// The operator UI panel itself, one panel represents one session, one play button, etc.
+    /// The inner panel, one panel represents one session, one play button, etc.
     /// but it shares the currently loaded test plan with other panels.
     /// </summary>
-    public partial class OperatorUiPanel : UserControl
+    public partial class SessionView : UserControl
     {
         public ITapDockContext Context { get; }
         public OperatorPanelViewModel ViewModel { get;  } 
         
         readonly TraceSource log = Log.CreateSource("OperatorUI");
 
-        public OperatorUiPanel(ITapDockContext context, OperatorPanelSetting operatorPanelSetting, OperatorPanelViewModel vm = null)
+        public SessionView(ITapDockContext context, OperatorPanelSetting operatorPanelSetting, OperatorPanelViewModel vm = null)
         {
             ViewModel = vm ?? new OperatorPanelViewModel();
             Context = context;
@@ -81,7 +81,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
             if (name.Submit == ChangeName.OkCancel.Ok)
             {
                 ViewModel.Name = name.NewName;
-                OperatorUiSettings.Current.Save();
+                OperatorPanelSettings.Current.Save();
             }
         }
 
@@ -155,7 +155,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
             }
             
             // save the changes to disk.
-            OperatorUiSettings.Current.Save();
+            OperatorPanelSettings.Current.Save();
         }
 
         void ViewLog_OnClick(object sender, RoutedEventArgs e)

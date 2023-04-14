@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <OutputType>Library</OutputType>
         <UseWpf>true</UseWpf>
-        <RootNamespace>OpenTap.OperatorUI</RootNamespace>
+        <RootNamespace>OpenTap.OperatorPanel</RootNamespace>
     </PropertyGroup>
     
     <ItemGroup>
@@ -26,7 +26,7 @@
     
     <ItemGroup>
       <None Include="..\Documentation\icon.png">
-        <Link>Packages\Operator UI\icon.png</Link>
+        <Link>Packages\Operator Panel\icon.png</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

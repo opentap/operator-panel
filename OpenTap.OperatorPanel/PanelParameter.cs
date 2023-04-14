@@ -2,7 +2,7 @@ using OpenTap;
 
 namespace PluginDevelopment.Gui.OperatorPanel
 {
-    [Display("UI Parameter")]
+    [Display("Session Parameter")]
     public class PanelParameter
     {
         [Display("External Name")]
