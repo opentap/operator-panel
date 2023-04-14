@@ -8,7 +8,7 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="OpenTAP" Version="9.20.0-rc.4" />
+        <PackageReference Include="OpenTAP" Version="$(OpenTapVersion)" />
         <OpenTapPackageReference Include="WPF Controls" Version="9.19" />
         <Reference Include="Keysight.Ccl.Wsl">
             <HintPath>$(OutputPath)\Dependencies\Keysight.Ccl.Wsl.4.0.1.9\Keysight.Ccl.Wsl.dll</HintPath>
