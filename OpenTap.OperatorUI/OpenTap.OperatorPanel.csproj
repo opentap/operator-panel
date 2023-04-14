@@ -4,6 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <OutputType>Library</OutputType>
         <UseWpf>true</UseWpf>
+        <RootNamespace>OpenTap.OperatorUI</RootNamespace>
     </PropertyGroup>
     
     <ItemGroup>

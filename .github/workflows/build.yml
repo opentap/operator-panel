@@ -18,7 +18,7 @@ jobs:
         run: dotnet build -c Release --no-restore
       - name: Build-Package
         run: |
-           cd OpenTap.OperatorUI\bin\Release\net472\
+           cd OpenTap.OperatorPanel\bin\Release\net472\
            ./tap.exe package create ../../../../package.xml
       - name: Upload binaries
         uses: actions/upload-artifact@v2
@@ -26,7 +26,7 @@ jobs:
           name: TapPackage
           retention-days: 14
           path: |
-            OpenTap.OperatorUI\bin\Release\net472\Operator UI*.TapPackage
+            OpenTap.OperatorUI\bin\Release\net472\Operator Panel*.TapPackage
       
   publish-package:
     if: github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
@@ -48,7 +48,7 @@ jobs:
         run: tap package install -f PackagePublish --version 3.0.0+efea95ee
       - name: Publish
         run: |
-          tap package publish -r http://packages.opentap.io -k ${{ secrets.REPO_PASS }} OperatorUI.*.TapPackage
+          tap package publish -r http://packages.opentap.io -k ${{ secrets.REPO_PASS }} "Operator Panel.*.TapPackage"
   
   build-pages:
     runs-on: ubuntu-latest
