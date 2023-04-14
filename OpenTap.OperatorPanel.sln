@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTap.OperatorPanel", "OpenTap.OperatorUI\OpenTap.OperatorPanel.csproj", "{4253D054-44EB-4C52-921E-DCC2480CC8FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTap.OperatorPanel", "OpenTap.OperatorPanel\OpenTap.OperatorPanel.csproj", "{4253D054-44EB-4C52-921E-DCC2480CC8FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
