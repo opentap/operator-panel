@@ -19,6 +19,12 @@ namespace OpenTap.OperatorPanel.Test
         [Display("J")]
         public double Capacity { get; set; } = 100000;
 
+        [Display("Ambient Temperature")]
+        [Unit("C")]
+        public double AmbientTemperature { get; set; } = 20.0;
+
+        public double BatteryTemperature { get; } = 20.0;
+        
         public double Charge { get; internal set; }
         double Voltage = 0.0;
         public double V_Bat => V_empty + (V_full - V_empty) * (Charge / Capacity);

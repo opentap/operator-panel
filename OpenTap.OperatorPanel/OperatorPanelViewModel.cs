@@ -32,7 +32,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
 
         public ITapDockContext Context { get; set; }
 
-        public string DutID { get; set; } = "N/A";
+        public string DutID { get; set; } = "";
 
         public bool AskForDutID { get; set; }
 
@@ -248,7 +248,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
                 // promoted results are [Result] properties extracted from the test plan.
                 UpdatePromotedResults();
                 
-                DutID = "N/A";
+                DutID = "";
                 OnPropertyChanged("");
                 var resultListeners = ResultSettings.Current;
                 
@@ -297,7 +297,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
         void UIListener_OnTestPlanRunStarted(object sender, TestPlanRun e)
         {
             // Update the DUT ID.
-            DutID = e.Parameters.FirstOrDefault(x => x.Name == "ID")?.Value?.ToString() ?? "?";
+            DutID = e.Parameters.FirstOrDefault(x => x.Name == "ID")?.Value?.ToString() ?? "";
             GuiHelpers.GuiInvokeAsync(() => OnPropertyChanged(nameof(DutID)));
         }
 
