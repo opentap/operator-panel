@@ -26,7 +26,7 @@ jobs:
           name: TapPackage
           retention-days: 14
           path: |
-            OpenTap.OperatorUI\bin\Release\Operator Panel*.TapPackage
+            bin\Release\Operator Panel*.TapPackage
       
   publish-package:
     if: github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
