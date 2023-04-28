@@ -1,6 +1,6 @@
 # Operator Panel
 
-The Operator Panel is a user interface plugin for the Test Automation Shell, designed to streamline manufacturing tests.
+The Operator Panel is a user interface plugin for Test Automation, designed to streamline manufacturing tests.
 
 ![operator ui](images/operator-ui.png)
 
@@ -18,16 +18,22 @@ The Operator Panel is a user interface plugin for the Test Automation Shell, des
 
 Manufacturing environments often require a streamlined and user-friendly experience to increase efficiency and reduce the chance of errors. The Operator Panel provides an intuitive solution, allowing for simultaneous execution of any number of parallel tests. All panels run the same test plan, but each has a separate set of external parameters that are set individually. In 'focus mode', there is no way to modify or affect the test plan run, except for a few intended methods.
 
-The Operator Panel plugin is provided as a basis or example for new panel implementations, but it can also be used as-is.
+The Operator Panel plugin can be used out-of-the-box, but the source code is also provided as a basis or example for creating new panel implementations tailored to your specific needs.
 
 
 ## 2. Licensing
-To use custom panels in Test Automation Shell (Editor.exe), a TAP_Engine license is required.
+
+To execute and view test plans using custom panels in Test Automation (Editor.exe), you will need a TAP_Engine license.
+
+If you also need to edit test plans using standard Test Automation features, a TAP_Editor license is required.
+
+Note that if you only need to execute test plans, the TAP_Engine license is sufficient.
 
 ## 3. Installation
 
-- Install the Operator Panel plugin using the package manager.
-- Start Test Automation
+- Install the Operator Panel plugin using the Test Automation Package Manager or using the command line interface:
+  - `tap package install "Operator Panel"`
+- Start Test Automation.
 
 ## 4. Usage
 - The basic panel can be opened from the View menu.
@@ -73,6 +79,8 @@ The source code for the Operator Panel is provided under the MIT license.
 
 ## 7. For more information
 Here are some resources to help you learn more about the Operator Panel and get support:
+
+- License: To obtain a TAP_Engine license, please contact your Keysight representative. For more information, you can visit https://www.keysight.com/zz/en/product/KS8000B/pathwave-test-automation-deployment-system.html/ 
 
 - Source code: The source code for the Operator Panel can be found on GitHub at https://github.com/opentap/operator-panel. Explore the code and experiment with different customizations to create your own implementation tailored to your specific needs.
 
