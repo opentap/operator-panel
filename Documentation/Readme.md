@@ -60,7 +60,22 @@ We recommend creating both a 'developer' and an 'operator' preset, which can be 
 
 
 ## 5. Customization
-To create a new panel implementation, use the provided source code as a basis or example.
+Different manufacturing environments may require different operator panel implementations. For example, you may need to customize the panel's layout, add or remove certain features, or integrate it with other tools.
+
+The current implementation of the Operator Panel may make assumptions that are not optimal for every environment. Hence, we provide the source code as a basis or example for creating your own implementation. You can tailor the code to meet your specific needs and adapt it to your unique situation.
+
+We encourage you to explore the source code and experiment with different customizations. Don't hesitate to share your modifications with the OpenTAP community or seek help from our support forums.
+
+For more information on customizing the Operator Panel, check out our documentation and tutorials.
 
 ## 6. Source Code and License
 The source code for the Operator Panel is provided under the MIT license.
+
+## 7. For more information
+Here are some resources to help you learn more about the Operator Panel and get support:
+
+- Source code: The source code for the Operator Panel can be found on GitHub at https://github.com/opentap/operator-panel. Explore the code and experiment with different customizations to create your own implementation tailored to your specific needs.
+
+- OpenTAP website: Visit https://opentap.io to learn more about OpenTAP and its features.
+
+- Support forum: Join the OpenTAP community at https://forum.opentap.io to ask questions, share your experiences, and get help from other users and experts.
