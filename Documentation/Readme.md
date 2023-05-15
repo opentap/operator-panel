@@ -12,6 +12,7 @@ The Operator Panel is a user interface plugin for Test Automation, designed to s
 4. Usage
 5. Customization
 6. Source code and license
+7. For more information
 
 
 ## 1. Overview
