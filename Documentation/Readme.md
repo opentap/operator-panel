@@ -11,8 +11,9 @@ The Operator Panel is a user interface plugin for Test Automation, designed to s
 3. Installation
 4. Usage
 5. Customization
-6. Source code and license
-7. For more information
+6. Designing Test Steps for the Operator Panel
+7. Source code and license
+8. For more information
 
 
 ## 1. Overview
@@ -75,10 +76,44 @@ We encourage you to explore the source code and experiment with different custom
 
 For more information on customizing the Operator Panel, check out our documentation and tutorials.
 
-## 6. Source Code and License
+## 6. Designing Test Steps for the Operator Panel
+
+A few considerations can be made when designing test step for usage with the Operator Panel plugin. 
+Note that all test steps can be run inside the panels, but if they are designed in a certain way, the usability can be improved even further.
+
+### 6.1 Results
+
+Results from test steps can be displayed in each panel by creating properties that utilize the ResultAttribute. This attribute indicates that the property should be saved as a result.
+
+For example:
+```cs
+[Result]
+public double Voltage{get; private set;}
+
+public Run(){
+    Voltage = Instrument.MeasureVoltage();
+    if(Voltage > VoltageLimit)
+        UpgradeVerdict(Verdict.Fail);
+    else
+        UpgradeVerdict(Verdict.Pass):
+}
+```
+The verdict of the test step determines whether the corresponding result is marked as pass or fail.
+
+By declaring results in this manner, the results will be automatically sent to result listeners.
+
+In this case, the name of the result corresponds to the name of the test step (e.g., "Voltage Measurement"), and the name of the column represents the property name (e.g., "Voltage"). The result value is the value assigned to the property when the test step completes.
+
+### 6.2 DUTs
+
+Each panel can be associated with a specific Device Under Test (DUT). In certain cases, you may want to display a custom prompt when the test plan begins to allow the user to enter information such as the serial number for the DUT.
+
+To accomplish this, the test plan needs to recognize that the DUT is a variable across multiple panels. This can be achieved by parameterizing the DUT within the test plan's scope.
+
+## 7. Source Code and License
 The source code for the Operator Panel is provided under the MIT license.
 
-## 7. For more information
+## 8. For more information
 Here are some resources to help you learn more about the Operator Panel and get support:
 
 - License: To obtain a TAP_Engine license, please contact your Keysight representative. For more information, you can visit https://www.keysight.com/zz/en/product/KS8000B/pathwave-test-automation-deployment-system.html/ 
