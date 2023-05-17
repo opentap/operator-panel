@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Keysight.Ccl.Wsl.UI;
+using Keysight.OpenTap.Gui;
 using Keysight.OpenTap.Wpf;
 using OpenTap;
 
@@ -45,11 +47,39 @@ namespace PluginDevelopment.Gui.OperatorPanel
         
         void StartButton_Clicked(object sender, RoutedEventArgs e) => ViewModel.ExecuteTestPlan();
         void StopButton_Clicked(object sender, RoutedEventArgs e) => ViewModel.StopTestPlan();
-        void DutIdEntered_OnClick(object sender, RoutedEventArgs e) => ViewModel.DutIdEntered();
+        void DutIdEntered_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DutIdEntered();
+            var parent = this.TryFindParent<StackPanel>();
+            parent?.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            parent?.FindVisualChild<TextBox>()?.SelectAll();
+        }
         void DutEnter_VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Equals(true, e.NewValue))
-                (sender as FrameworkElement)?.Focus();
+            {
+                (sender as TextBox)?.Focus();
+                (sender as TextBox)?.SelectAll();
+            }
+        }
+        
+        void DutEnter_HandleReturn(object sender, KeyEventArgs e)
+        {
+            // continue when return is hit.
+            if (e.Key == Key.Return)
+            {
+                ViewModel.DutIdEntered();
+                var parent = sender as StackPanel;
+                parent?.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                GuiHelpers.GuiInvokeAsync(() =>
+                {
+                    parent?.FindVisualChild<TextBox>()?.SelectAll();
+                });
+            }
+            else
+            {
+                e.Handled = false;
+            }
         }
 
         /// <summary>

@@ -32,10 +32,32 @@ namespace PluginDevelopment.Gui.OperatorPanel
 
         public ITapDockContext Context { get; set; }
 
-        public string DutID { get; set; } = "";
-
         public bool AskForDutID { get; set; }
 
+        public class DutView : INotifyPropertyChanged
+        {
+            readonly IMemberData member;
+            readonly IDut dut;
+            public string Name { get; set; }
+            public string ID { get; set; }
+            public DutView(IDut dut, IMemberData idMember)
+            {
+                ID = idMember.GetValue(dut)?.ToString() ?? "";
+                this.dut = dut;
+                this.member = idMember;
+            }
+
+            public void UpdateId()
+            {
+                member.SetValue(dut, ID);
+            }
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        
         public class PromotedResults : INotifyPropertyChanged
         {
             public string Name { get; set; }
@@ -51,7 +73,14 @@ namespace PluginDevelopment.Gui.OperatorPanel
             }
         }
 
+        public List<DutView> DutsList { get; set; } = new List<DutView>();
+
         public List<PromotedResults> ResultsList { get; set; }= new List<PromotedResults>();
+        
+        int dutViewIndex = 0;
+        public DutView CurrentDut => DutsList.Skip(dutViewIndex).FirstOrDefault() ?? DutsList.FirstOrDefault();
+
+        
         public double DurationSecs => startedTimer.Elapsed.TotalSeconds * 10.0;
         public string Name
         {
@@ -85,10 +114,31 @@ namespace PluginDevelopment.Gui.OperatorPanel
                             Verdict = Verdict.NotSet
                         });   
                 }
+                
             }
 
             ResultsList = newResults;
             OnPropertyChanged(nameof(ResultsList));
+            var newDuts = new List<DutView>();
+            var plan = (currentPlan ?? Context.Plan);
+            foreach (var parameter in TypeData.GetTypeData(plan).GetMembers().OfType<IParameterMemberData>())
+            {
+                if (parameter.TypeDescriptor.DescendsTo(typeof(IDut)) == false) continue;
+                var dutInstance = parameter.GetValue(plan) as IDut;
+                if (dutInstance == null) continue;
+                var idMember = TypeData.GetTypeData(dutInstance)?.GetMember(nameof(Dut.ID));
+                if (idMember == null) continue;
+                var newDut = new DutView(dutInstance, idMember )
+                {
+                    Name = parameter.Name,
+                    ID = idMember.GetValue(dutInstance)?.ToString() ?? ""
+                };
+
+                newDuts.Add(newDut);
+            }
+            DutsList = newDuts;
+            OnPropertyChanged(nameof(DutsList));
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -117,13 +167,15 @@ namespace PluginDevelopment.Gui.OperatorPanel
         {
             readonly Action enterDutStarted;
             readonly Action enterDutEnded;
+            readonly Func<bool> enterNextDut;
             IUserInputInterface prev;
             IUserInterface prev2;
 
-            public UserInputOverride(object prev, Action enterDutStarted, Action enterDutEnded)
+            public UserInputOverride(object prev, Action enterDutStarted,Func<bool> nextDut, Action enterDutEnded)
             {
                 this.enterDutStarted = enterDutStarted;
                 this.enterDutEnded = enterDutEnded;
+                this.enterNextDut = nextDut;
                 this.prev = prev as IUserInputInterface;
                 this.prev2 = prev as IUserInterface;
             }
@@ -138,10 +190,18 @@ namespace PluginDevelopment.Gui.OperatorPanel
                     enterDutStarted?.Invoke();
                     try
                     {
-                        if(Timeout.TotalSeconds > 10000)
-                            enterComplete.Wait(TapThread.Current.AbortToken);
-                        else
-                            enterComplete.Wait(Timeout, TapThread.Current.AbortToken);
+                        while (true)
+                        {
+                            if (Timeout.TotalSeconds > 10000)
+                                enterComplete.Wait(TapThread.Current.AbortToken);
+                            else
+                                enterComplete.Wait(Timeout, TapThread.Current.AbortToken);
+                            if (!enterNextDut())
+                            {
+                                break;
+                            }
+                            enterComplete.Reset();
+                        }
                     }
                     finally
                     {
@@ -201,6 +261,7 @@ namespace PluginDevelopment.Gui.OperatorPanel
 
                 // load the panel settings.
                 var a = AnnotationCollection.Annotate(currentPlan);
+                var ds = DutSettings.Current;
                 foreach (var member in a.Get<IMembersAnnotation>().Members)
                 {
                     var str = member.Get<IStringValueAnnotation>();
@@ -230,10 +291,20 @@ namespace PluginDevelopment.Gui.OperatorPanel
                     {
                         GuiHelpers.GuiInvoke(() =>
                         {
-                            DutID = "";
+                            dutViewIndex = 0;
                             AskForDutID = true;
                             OnPropertyChanged("");
                         });
+                    },
+                    () =>
+                    {
+                        dutViewIndex++;
+                        GuiHelpers.GuiInvoke(() =>
+                        {
+                            OnPropertyChanged(nameof(CurrentDut));
+                        });
+                        if (dutViewIndex >= DutsList.Count) return false;
+                        return true;
                     },
                     () =>
                     {
@@ -241,6 +312,8 @@ namespace PluginDevelopment.Gui.OperatorPanel
                         {
                             AskForDutID = false;
                             OnPropertyChanged("");
+                            UpdatePromotedResults();
+
                         });
                     });
                 UserInput.SetInterface(ui);
@@ -248,14 +321,12 @@ namespace PluginDevelopment.Gui.OperatorPanel
                 // promoted results are [Result] properties extracted from the test plan.
                 UpdatePromotedResults();
                 
-                DutID = "";
                 OnPropertyChanged("");
                 var resultListeners = ResultSettings.Current;
                 
                 // setup the UI Update result listener 
                 var uiListener = new OperatorResultListener();
                 uiListener.TestStepRunCompleted += UiListener_OnTestStepRunCompleted;
-                uiListener.TestPlanRunStarted += UIListener_OnTestPlanRunStarted;
                 
                 startedTimer.Restart();
                 Status = TestPlanStatus.Running;
@@ -294,12 +365,6 @@ namespace PluginDevelopment.Gui.OperatorPanel
             }
         }
 
-        void UIListener_OnTestPlanRunStarted(object sender, TestPlanRun e)
-        {
-            // Update the DUT ID.
-            DutID = e.Parameters.FirstOrDefault(x => x.Name == "ID")?.Value?.ToString() ?? "";
-            GuiHelpers.GuiInvokeAsync(() => OnPropertyChanged(nameof(DutID)));
-        }
 
         void UiListener_OnTestStepRunCompleted(object sender, TestStepRun run)
         {
@@ -323,16 +388,10 @@ namespace PluginDevelopment.Gui.OperatorPanel
 
         public void DutIdEntered()
         {
-            executorSession.RunInSession(() => {
+            CurrentDut.UpdateId();
+            executorSession.RunInSession(() =>
+            {
                 (UserInput.Interface as UserInputOverride)?.EnterComplete();
-            
-                foreach(var dutTypeMembers in TypeData.GetTypeData(currentPlan)
-                    .GetMembers()
-                    .Where(x => x.TypeDescriptor.DescendsTo(typeof(Dut))))
-                {
-                    if (dutTypeMembers.GetValue(currentPlan) is Dut d)
-                        d.ID = DutID;
-                }
             });
         }
     }
