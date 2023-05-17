@@ -81,6 +81,8 @@ For more information on customizing the Operator Panel, check out our documentat
 A few considerations can be made when designing test step for usage with the Operator Panel plugin. 
 Note that all test steps can be run inside the panels, but if they are designed in a certain way, the usability can be improved even further.
 
+Example code can be found here: https://github.com/opentap/operator-panel/tree/main/OpenTap.OperatorPanel.Test
+
 ### 6.1 Results
 
 Results from test steps can be displayed in each panel by creating properties that utilize the ResultAttribute. This attribute indicates that the property should be saved as a result.
