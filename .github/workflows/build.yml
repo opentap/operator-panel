@@ -51,6 +51,7 @@ jobs:
         run: tap package install PackagePublish --version 3.0.0+efea95ee
       - name: Publish
         run: |
+          find
           tap package publish -r http://packages.opentap.io -k ${{ secrets.REPO_PASS }} "Operator Panel.*.TapPackage"
   
   build-pages:
