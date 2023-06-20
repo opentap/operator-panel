@@ -10,4 +10,4 @@ You can use the source code in this project for the basis for your own operator 
 
 ### Documentation
 
-More documentation can be found here: doc.opentap.io/operator-ui
+More documentation can be found here: [doc.opentap.io/operator-ui](https://doc.opentap.io/operator-panel/).
