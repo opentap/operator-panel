@@ -18,6 +18,6 @@ module.exports = {
         ]
     },
     dest: '../public',
-    base: '/Operator Panel/'
+    base: '/operator-panel/'
 }
 
