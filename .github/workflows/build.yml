@@ -32,7 +32,7 @@ jobs:
             bin\Release\Operator Panel*.TapPackage
       
   publish-package:
-    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
     environment: packages.opentap.io
     runs-on: windows-latest
     needs:
