@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using Keysight.OpenTap.Wpf;
+using OpenTap;
 
 namespace PluginDevelopment.Gui.OperatorPanel
 {
@@ -14,6 +17,34 @@ namespace PluginDevelopment.Gui.OperatorPanel
             this.tapDockContext = tapDockContext;
             InitializeComponent();
             baseGrid.DataContext = ViewModel;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
+            
+        }
+        void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            
+            OperatorPanelSettings.Current.CacheInvalidated -= CurrentOnCacheInvalidated;
+            OperatorPanelSettings.Current.PropertyChanged -= CurrentOnPropertyChanged;   
+        }
+        
+        void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            OperatorPanelSettings.Current.CacheInvalidated += CurrentOnCacheInvalidated;
+            OperatorPanelSettings.Current.PropertyChanged += CurrentOnPropertyChanged;   
+        }
+        
+        void CurrentOnCacheInvalidated(object sender, EventArgs e)
+        {
+            (sender as ComponentSettings).CacheInvalidated -= CurrentOnCacheInvalidated;
+            (sender as ComponentSettings).PropertyChanged -= CurrentOnPropertyChanged;
+
+            OperatorPanelSettings.Current.PropertyChanged += CurrentOnPropertyChanged;
+            OperatorPanelSettings.Current.CacheInvalidated += CurrentOnCacheInvalidated;
+        }
+        void CurrentOnPropertyChanged (object sender, PropertyChangedEventArgs e)
+        {
+            ViewModel.OnPropertyChanged("");
         }
 
         readonly Dictionary<OperatorPanelSetting, OperatorPanelViewModel> viewModels =

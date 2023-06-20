@@ -58,19 +58,7 @@
                     </Path>
                 </Canvas>
             </ControlTemplate>
-            <ControlTemplate TargetType="Control" x:Key="Tap.Pen">
-                <Canvas Width="14" Height="12">
-                    <Path Canvas.Left="3" Canvas.Top="8" Style="{StaticResource Tap.PathIconStyle}">
-                        <Path.Data>
-                            <GeometryGroup>
-                                <PathGeometry Figures="M 8 -8 0 0 -2 4 3 2 11 -6 Z"></PathGeometry>
-                                <PathGeometry Figures="M 11 -6 12 -7 9 -9"></PathGeometry>
-                                <PathGeometry Figures="M -2 5 6 5"></PathGeometry>
-                            </GeometryGroup>
-                        </Path.Data>
-                    </Path>
-                </Canvas>
-            </ControlTemplate>
+            
             <ControlTemplate x:Key="CheckMark">
                 <Canvas Width="40" Height="30">
                     <Path Canvas.Left="5" Canvas.Top="28" Stroke="Green" StrokeThickness="5" Data="M 0,-10 10,0 20,-30" />
@@ -155,6 +143,11 @@
                         <Border Background="{DynamicResource DataGrid.ColumnHeader.Static.Background}"
                                 HorizontalAlignment="Stretch" Padding="2">
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition  Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
                                 <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="60">
 
                                     <Button Name="startBtn" Click="StartButton_Clicked" VerticalAlignment="Stretch"
@@ -169,17 +162,16 @@
                                     </Button>
                                 </Grid>
 
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock VerticalAlignment="Center"
-                                               Text="{Binding ViewModel.Name, ElementName=This}" FontWeight="Bold"
-                                               FontSize="17" />
+                                
+                                <TextBox Name="panelTitleEditable" Grid.Column="1" VerticalAlignment="Center" Height="64"
+                                         BorderThickness="0"
+                                         Text="{Binding ViewModel.Name, ElementName=This}" FontWeight="Bold"
+                                         FontSize="17" />
+                                <TextBlock Name="panelTitleFixed" Margin="5,0,0,0" Grid.Column="1" VerticalAlignment="Center" Visibility="Collapsed"
+                                           Text="{Binding ViewModel.Name, ElementName=This}" FontWeight="Bold"
+                                           FontSize="17" />
 
-
-                                </StackPanel>
-                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <Button Name="ChangeName" Click="ChangeName_Clicked" Padding="6,6">
-                                        <Control Template="{StaticResource Tap.Pen}" />
-                                    </Button>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal">
                                     <Button Name="EditParameters" Click="EditParameters_Clicked" Padding="6,6">
                                         <Control Template="{StaticResource Tap.GearVisual}" />
                                     </Button>
@@ -246,11 +238,11 @@
                     <DataTrigger
                         Binding="{Binding FocusModeEnabled, RelativeSource={RelativeSource AncestorType=gui:MainWindow}}"
                         Value="True">
-                        <Setter TargetName="ChangeName" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="panelTitleEditable" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="panelTitleFixed" Property="Visibility" Value="Visible" />
                         <Setter TargetName="EditParameters" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding ViewModel.Status, ElementName=This}" Value="Running">
-                        <Setter TargetName="ChangeName" Property="IsEnabled" Value="False" />
                         <Setter TargetName="EditParameters" Property="IsEnabled" Value="False" />
                         <Setter Property="Template" Value="{StaticResource Running}" TargetName="inner" />
                         <Setter TargetName="background" Property="Stroke" Value="CornflowerBlue" />
