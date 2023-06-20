@@ -151,13 +151,17 @@
                                 <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="60">
 
                                     <Button Name="startBtn" Click="StartButton_Clicked" VerticalAlignment="Stretch"
-                                            Margin="2">
+                                            Margin="2"
+                                            ToolTip="Executes the test plan."
+                                            >
                                         <Polygon Margin="5,0" Fill="LawnGreen" Stretch="Uniform"
                                                  Points="0 0 30 20 0 40" />
                                     </Button>
 
                                     <Button Visibility="Collapsed" Name="stopBtn" HorizontalAlignment="Center"
-                                            Click="StopButton_Clicked" Margin="2">
+                                            Click="StopButton_Clicked" Margin="2"
+                                            ToolTip="Aborts the current test plan run."
+                                            >
                                         <Rectangle Width="40" Height="40" Margin="10" Fill="Red" />
                                     </Button>
                                 </Grid>
@@ -172,10 +176,13 @@
                                            FontSize="17" />
 
                                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                    <Button Name="EditParameters" Click="EditParameters_Clicked" Padding="6,6">
+                                    <Button Name="EditParameters" Click="EditParameters_Clicked" Padding="6,6"
+                                            ToolTip="Edit panel parameters. These are values set for the test plan, unique to this panel.">
                                         <Control Template="{StaticResource Tap.GearVisual}" />
                                     </Button>
-                                    <Button Click="ViewLog_OnClick" Padding="6,6">
+                                    <Button Click="ViewLog_OnClick" Padding="6,6"
+                                            ToolTip="View the log from the last test plan log."
+                                            >
                                         <Control Template="{StaticResource Tap.DebugVisual}" />
                                     </Button>
                                 </StackPanel>

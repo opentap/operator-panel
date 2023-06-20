@@ -6,8 +6,6 @@
     
     <ItemGroup>
         <PackageReference Include="OpenTAP" Version="$(OpenTapVersion)" />
-        <OpenTapPackageReference Include="CSV2" Version="any" Repository="file:\\\C:\Users\romadsen\Desktop\TestFolder"/>
-        <!--<OpenTapPackageReference Include="CSV" Version="any"/>-->
     </ItemGroup>
 
 </Project>
