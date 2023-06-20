@@ -34,7 +34,7 @@ jobs:
   publish-package:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || contains(github.ref, 'refs/heads/release') || contains(github.ref, 'refs/tags/v')
     environment: packages.opentap.io
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs:
       - build-windows
     steps:
@@ -48,7 +48,7 @@ jobs:
         with:
           version: 9.19.4
       - name: Install PackagePublish
-        run: tap package install -f PackagePublish --version 3.0.0+efea95ee
+        run: tap package install PackagePublish --version 3.0.0+efea95ee
       - name: Publish
         run: |
           tap package publish -r http://packages.opentap.io -k ${{ secrets.REPO_PASS }} "Operator Panel.*.TapPackage"
