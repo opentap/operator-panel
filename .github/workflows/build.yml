@@ -46,7 +46,7 @@ jobs:
       - name: Setup OpenTAP
         uses: opentap/setup-opentap@v1.0
         with:
-          version: 9.19.4
+          version: 9.21.0
       - name: Install PackagePublish
         run: tap package install PackagePublish --version 3.0.0+efea95ee
       - name: Publish
