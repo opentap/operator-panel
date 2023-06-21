@@ -1,4 +1,4 @@
-# Operator UI
+# Operator Panel
 
 This project contains code for an operator user interface which can run many tests in parallel.
 
@@ -12,4 +12,4 @@ You can use the source code in this project for the basis for your own operator 
 
 ### Documentation
 
-More documentation can be found here: [doc.opentap.io/operator-ui](https://doc.opentap.io/operator-panel/).
+More documentation can be found here: [doc.opentap.io/operator-panel](https://doc.opentap.io/operator-panel/).
