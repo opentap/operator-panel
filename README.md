@@ -1,10 +1,7 @@
-# Operator Panel
+# Operator Panel for Test Automation
+The Operator Panel is a user interface plugin for  Keysight Test Automation (KS8400), designed to streamline manufacturing tests. It provides an solution for manufacturing environments, allowing for simultaneous execution of any number of parallel tests. All panels run the same test plan, but each has a separate set of external parameters that are set individually​.
 
-This project contains code for an operator user interface which can run many tests in parallel.
-
-It is implemented as a panel for Keysight Test Automation (KS8400).
-
-Note that to use it as a panel plugin for Keysight Test Automation a TAP_Engine license is required.
+Note that while the code here is released under the MIT license, to use it as is, a TAP_Engine license is required.
 
 Releases can be downloaded from the OpenTAP package repository at https://packages.opentap.io.
 
