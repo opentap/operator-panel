@@ -2,7 +2,7 @@
 
 The Operator Panel is a user interface plugin for Test Automation, designed to streamline manufacturing tests.
 
-![operator ui](images/operator-ui.png)
+![operator ui](./images/operator-ui.png)
 
 ## Table of Contents
 
@@ -40,11 +40,11 @@ Note that if you only need to execute test plans, the TAP_Engine license is suff
 ## 4. Usage
 - The basic panel can be opened from the View menu.
 
-![view menu](images/view-menu.png)
+![view menu](./images/view-menu.png)
 
 - The operator panel can be docked next to the test plan panel like this:
 
-![view menu](images/operator-test-plan.png)
+![view menu](./images/operator-test-plan.png)
 
 
 To make the panel aware of you DUT, parameterize the DUT property unto the test plan.
@@ -64,7 +64,7 @@ For optimal use of the Operator Panel in a manufacturing setting, follow these s
 
 We recommend creating both a 'developer' and an 'operator' preset, which can be easily switched between using the ALT+Shift+[1234] keyboard combination. See the preset menu for details.
 
-![Presets menu](images/presets-view.png)
+![Presets menu](./images/presets-view.png)
 
 
 ## 5. Customization
