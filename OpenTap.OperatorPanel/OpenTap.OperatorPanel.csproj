@@ -10,6 +10,11 @@
     <ItemGroup>
         <PackageReference Include="OpenTAP" Version="$(OpenTapVersion)" />
         <OpenTapPackageReference Include="WPF Controls" Version="9.19" />
+        <!-- Reference to Editor needed to check if FocusMode is enabled -->
+        <OpenTapPackageReference Include="Editor" Version="9.19" />
+        <Reference Include="Editor">
+            <HintPath>$(OutputPath)\Editor.exe</HintPath>
+        </Reference>
         <Reference Include="Keysight.Ccl.Wsl">
             <HintPath>$(OutputPath)\Dependencies\Keysight.Ccl.Wsl.4.0.1.9\Keysight.Ccl.Wsl.dll</HintPath>
         </Reference>
@@ -17,11 +22,6 @@
         <Reference Include="PresentationFramework" />
         <Reference Include="System.Windows.Forms" />
         <Reference Include="WindowsBase" />
-    </ItemGroup>
-    <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <!-- Only install the editor package when there is a chance of doing debugging. 
-        Normally not needed in release builds.  -->
-        <AdditionalOpenTapPackage Include="Editor" />
     </ItemGroup>
     
     <ItemGroup>
