@@ -9,9 +9,12 @@
     
     <ItemGroup>
         <PackageReference Include="OpenTAP" Version="$(OpenTapVersion)" />
-        <OpenTapPackageReference Include="WPF Controls" Version="9.19" />
+        <OpenTapPackageReference Include="WPF Controls" Version="9.28.2" />
+        <Reference Include="Editor">
+          <HintPath>..\bin\Debug\Editor.exe</HintPath>
+        </Reference>
         <Reference Include="Keysight.Ccl.Wsl">
-            <HintPath>$(OutputPath)\Dependencies\Keysight.Ccl.Wsl.4.0.1.9\Keysight.Ccl.Wsl.dll</HintPath>
+            <HintPath>$(OutputPath)\Dependencies\Keysight.Ccl.Wsl.6.6.0.0\Keysight.Ccl.Wsl.dll</HintPath>
         </Reference>
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
@@ -21,7 +24,7 @@
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
         <!-- Only install the editor package when there is a chance of doing debugging. 
         Normally not needed in release builds.  -->
-        <AdditionalOpenTapPackage Include="Editor" />
+        <AdditionalOpenTapPackage Include="Editor" Version="9.28.2" />
     </ItemGroup>
     
     <ItemGroup>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PluginDevelopment.Gui.OperatorPanel"
              xmlns:gui="clr-namespace:Keysight.OpenTap.Gui;assembly=Editor"
+             xmlns:ccl="clr-namespace:Keysight.Ccl.Wsl.UI.Resources.Brushes;assembly=Keysight.Ccl.Wsl"
              mc:Ignorable="d"
              Name="This"
              d:DesignHeight="300" d:DesignWidth="300">
